@@ -491,39 +491,46 @@
 
 三种风格可选（不使用传统左色条）：
 
-### 3A. 大引号装饰
+### 3A. 极简留白式金句
 
-白底圆角卡片 + oversized引号，杂志感。
+黄色短线分割 + 蓝色大字金句，极简但有力。适合观点页、引用页、总结页。
 
 ```html
-<div class="key-insight quote-deco">
-  <p>重要观点或引用内容</p>
+<div class="key-insight quote-minimal">
+  <p class="quote-body">正文段落 / 背景说明</p>
+  <div class="quote-rule"></div>
+  <p class="quote-conclusion">金句 / 结论 / 核心观点</p>
 </div>
 ```
 
 ```css
-.quote-deco {
-  position: relative;
-  padding: 32px 32px 32px 56px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+.quote-minimal {
+  text-align: left;
 }
-.quote-deco::before {
-  content: '\201C';
-  position: absolute;
-  top: 16px;
-  left: 20px;
-  font-family: 'Fraunces', serif;
-  font-size: 3.5rem;
-  line-height: 1;
+.quote-minimal .quote-body {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 2;
+  color: var(--ink, #1A1A2E);
+  margin-bottom: 2rem;
+}
+.quote-minimal .quote-body .hl {
+  background: linear-gradient(transparent 60%, rgba(244,215,88,0.3) 60%);
+  padding: 0 4px;
+}
+.quote-minimal .quote-rule {
+  width: 60px;
+  height: 3px;
+  background: var(--yellow, #F4D758);
+  margin-bottom: 2rem;
+}
+.quote-minimal .quote-conclusion {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.2rem;
+  font-weight: 900;
   color: var(--blue, #2B7FD8);
-  opacity: 0.6;
-}
-.quote-deco p {
-  font-size: 0.95rem;
-  line-height: 1.9;
-  color: var(--ink-light, #4A4A5A);
+  line-height: 1.7;
 }
 ```
 
@@ -4049,3 +4056,215 @@ function flipStack() {
 - Caveat字体 + 编号圆圈营造手写质感
 - 虚线分隔主内容和附加信息
 - 适合结尾寄语、课后思考、感谢页、个人备忘
+
+---
+
+## #38 点击弹窗详情（Click-to-Modal Detail）
+
+**用途**：点击卡片/图片弹出大型Modal，展示详细信息+多图gallery+标签。适合作品集、建筑项目、案例展示。
+
+```html
+<!-- Grid of clickable cards -->
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; max-width: 760px;">
+  <div class="work-card" onclick="openModal(0)" style="border-radius: 14px; overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/10;">
+    <img src="[image-url]" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s;">
+    <div style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 12px; font-size: 0.6rem; color: #fff;">Click to explore →</div>
+    <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 18px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: #fff;">
+      <h3 style="font-size: 0.9rem; font-weight: 700;">Project Name</h3>
+      <span style="font-size: 0.68rem; opacity: 0.8;">Year · Category</span>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)" style="display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 24px;">
+  <span onclick="closeModal()" style="position: fixed; top: 20px; right: 24px; font-size: 2rem; color: #fff; cursor: pointer; z-index: 1001;">&times;</span>
+  <div style="background: #F5F5F0; border-radius: 16px; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto;" onclick="event.stopPropagation()">
+    <img src="[hero-image]" style="width: 100%; aspect-ratio: 21/9; object-fit: cover; border-radius: 16px 16px 0 0;">
+    <div style="padding: 28px 32px 32px;">
+      <h2>Title</h2>
+      <span style="font-size: 0.75rem; color: var(--copper);">Year · Location</span>
+      <p>Description with rich detail...</p>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0;">
+        <img src="[gallery-1]" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px;">
+        <img src="[gallery-2]" style="...">
+        <img src="[gallery-3]" style="...">
+      </div>
+      <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px;">
+        <span style="font-size: 0.65rem; background: #EFE8D8; color: #8B4513; padding: 4px 10px; border-radius: 4px; font-weight: 600;">Tag</span>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+**设计要点**：
+- 卡片hover时scale(1.05)微放大
+- Modal overlay点击空白处 / Esc关闭
+- Hero图21:9宽幅电影比例
+- Gallery 3列网格展示多角度
+- 底部标签列表标注关键词
+- body overflow: hidden 防止背景滚动
+
+---
+
+## #39 缩略图轨道+侧面板（Thumbnail Rail + Side Panel）
+
+**用途**：左侧竖向缩略图、中间大图、右侧文字面板。类gallery app体验，适合建筑/摄影/作品展示。
+
+```html
+<div style="display: flex; gap: 0; max-width: 850px; height: 420px; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08);">
+  <!-- Thumbnail rail -->
+  <div style="width: 100px; background: #2C2A26; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; overflow-y: auto;">
+    <img src="[thumb-1]" style="width: 100%; aspect-ratio: 1; object-fit: cover; cursor: pointer; opacity: 1;" onclick="switchPanel(0)">
+    <img src="[thumb-2]" style="width: 100%; aspect-ratio: 1; object-fit: cover; cursor: pointer; opacity: 0.5;" onclick="switchPanel(1)">
+    <img src="[thumb-3]" style="...opacity: 0.5;" onclick="switchPanel(2)">
+  </div>
+  <!-- Main image area -->
+  <div style="flex: 1; position: relative; overflow: hidden;">
+    <img src="[full-1]" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 0.4s;">
+    <img src="[full-2]" style="...opacity: 0; transition: opacity 0.4s;">
+  </div>
+  <!-- Side panel -->
+  <div style="width: 280px; background: #fff; padding: 28px 20px; overflow-y: auto; flex-shrink: 0; border-left: 1px solid #EFE8D8;">
+    <h3 style="font-size: 1rem; font-weight: 800;">Title</h3>
+    <p style="font-size: 0.72rem; color: #B87333; font-weight: 600;">Year · Location</p>
+    <p style="font-size: 0.78rem; color: #5A5650; line-height: 1.8;">Description text...</p>
+  </div>
+</div>
+```
+
+**设计要点**：
+- 缩略图active为opacity:1，inactive为0.5
+- 中间大图绝对定位叠放，通过opacity切换
+- 右侧面板固定宽度，内容随选中项变化
+- 整体圆角+阴影组成一个完整的"app窗口"感
+
+---
+
+## #40 悬停翻转卡片（Hover Flip Cards）
+
+**用途**：鼠标悬停翻转，正面为图片，背面为深色文字介绍。适合作品集、人物介绍、产品展示。
+
+```html
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 800px; perspective: 1200px;">
+  <div style="aspect-ratio: 3/4; position: relative; cursor: pointer;">
+    <div class="flip-inner" style="width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 12px;">
+      <!-- Front -->
+      <div style="position: absolute; inset: 0; backface-visibility: hidden; border-radius: 12px; overflow: hidden;">
+        <img src="[image]" style="width: 100%; height: 100%; object-fit: cover;">
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: #fff; font-size: 0.72rem; font-weight: 600;">Label</div>
+      </div>
+      <!-- Back -->
+      <div style="position: absolute; inset: 0; backface-visibility: hidden; transform: rotateY(180deg); background: #2C2A26; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: center; color: #fff;">
+        <h4 style="font-size: 0.85rem; font-weight: 700;">Title</h4>
+        <span style="font-size: 0.68rem; color: #D4A574;">Year</span>
+        <p style="font-size: 0.72rem; color: rgba(255,255,255,0.7); line-height: 1.7; margin-top: 8px;">Description</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+**CSS hover trigger**：
+```css
+.flip-card:hover .flip-inner { transform: rotateY(180deg); }
+```
+
+**设计要点**：
+- perspective: 1200px 制造3D透视感
+- transform-style: preserve-3d 保持子元素3D空间
+- backface-visibility: hidden 隐藏背面
+- 正面底部gradient标签提示内容
+- 背面深色底+木色accent统一风格
+- 3:4竖向比例适合人像/建筑
+
+---
+
+## #41 巨大引号居中（Giant Quote Centered）
+
+**用途**：结尾页/金句页。奶油底色+大字号引号居中，极简但有力。
+
+```html
+<section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #EFE8D8; text-align: center; padding: 60px;">
+  <div>
+    <p style="font-family: 'Libre Baskerville', serif; font-style: italic; font-size: clamp(1.5rem, 3.5vw, 2.5rem); line-height: 1.8; max-width: 750px; color: #2C2A26;">"Quote text here."</p>
+    <p style="font-size: 0.75rem; color: #8E8880; margin-top: 24px; letter-spacing: 0.15em; text-transform: uppercase;">— Attribution</p>
+  </div>
+</section>
+```
+
+**设计要点**：大量留白撑开视觉重量，serif字体营造权威感
+
+---
+
+## #42 肖像分割+引号（Portrait Split Quote）
+
+**用途**：结尾页。左侧人物肖像占45%，右侧引号+总结文字。
+
+```html
+<section style="min-height: 100vh; display: flex; align-items: center;">
+  <div style="width: 45%; height: 100vh; overflow: hidden;">
+    <img src="[portrait]" style="width: 100%; height: 100%; object-fit: cover;">
+  </div>
+  <div style="width: 55%; padding: 60px 80px;">
+    <p style="font-family: 'Libre Baskerville', serif; font-style: italic; font-size: clamp(1.1rem, 2.2vw, 1.5rem); line-height: 2;">"Quote"</p>
+    <p style="font-size: 0.72rem; color: #B87333; margin-top: 20px; font-weight: 600; letter-spacing: 0.1em;">ATTRIBUTION</p>
+    <p style="font-size: 0.78rem; color: #8E8880; margin-top: 16px; line-height: 1.8;">Summary text.</p>
+  </div>
+</section>
+```
+
+---
+
+## #43 深色字幕式结尾（Dark Typographic Ending）
+
+**用途**：深色全屏+巨大水印文字背景+居中引号，电影感结尾。
+
+```html
+<section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #2C2A26; text-align: center; position: relative;">
+  <div style="font-size: clamp(4rem, 10vw, 8rem); font-weight: 800; color: rgba(212,165,116,0.08); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap;">WATERMARK</div>
+  <div style="position: relative; max-width: 600px; padding: 40px;">
+    <p style="font-family: 'Libre Baskerville', serif; font-style: italic; font-size: clamp(1.1rem, 2.2vw, 1.4rem); line-height: 2; color: rgba(255,255,255,0.85);">"Quote"</p>
+    <div style="width: 40px; height: 2px; background: #D4A574; margin: 24px auto;"></div>
+    <p style="font-size: 0.72rem; color: rgba(255,255,255,0.4); letter-spacing: 0.15em; text-transform: uppercase;">Attribution</p>
+  </div>
+</section>
+```
+
+---
+
+## #44 极简留白引号（Ultra-Minimal Quote）
+
+**用途**：纯白底+左对齐引号+巨大留白。最克制的结尾方式。
+
+```html
+<section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #F5F5F0; padding: 60px;">
+  <div style="max-width: 500px; text-align: left;">
+    <p style="font-family: 'Libre Baskerville', serif; font-size: 1.1rem; line-height: 2.2; color: #2C2A26;">"Quote text here."</p>
+    <div style="display: flex; align-items: center; gap: 12px; margin-top: 32px;">
+      <div style="width: 32px; height: 1px; background: #D4A574;"></div>
+      <span style="font-size: 0.68rem; color: #8E8880; letter-spacing: 0.12em; text-transform: uppercase;">Attribution</span>
+    </div>
+  </div>
+</section>
+```
+
+---
+
+## #45 暗化肖像+居中引号（Portrait Overlay Quote）
+
+**用途**：结尾页。全铺人物照暗化+灰度处理，白色引号居中叠加。
+
+```html
+<section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; text-align: center;">
+  <img src="[portrait]" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.3) grayscale(0.3);">
+  <div style="position: relative; z-index: 2; max-width: 600px; padding: 40px;">
+    <p style="font-family: 'Libre Baskerville', serif; font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.8rem); line-height: 2; color: #fff;">"Quote"</p>
+    <div style="width: 40px; height: 2px; background: #D4A574; margin: 28px auto;"></div>
+    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); letter-spacing: 0.12em; text-transform: uppercase;">Attribution</p>
+  </div>
+</section>
+```
+
+**设计要点**：filter: brightness(0.3) grayscale(0.3) 让人物退后成氛围，文字成为焦点
