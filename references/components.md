@@ -239,54 +239,15 @@
 
 ---
 
-### 1E. 引用块风格卡片（5种变体）
+### 1E. 观点/洞察卡片（4种变体）
 
 适用场景：观点/洞察展示、Key Insights、重点提炼。根据内容调性选用不同风格。
 
----
-
-#### 1E-A. 极简竖线 Minimal Line
-
-最安静的引用风格，适合正文中嵌入的轻量级观点。
-
-```html
-<div class="quote-minimal">
-  <h3 class="quote-title">观点标题</h3>
-  <p class="quote-desc">观点描述内容</p>
-</div>
-```
-
-```css
-.quote-minimal {
-  position: relative;
-  padding: 24px 0 24px 32px;
-}
-.quote-minimal::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 8px;
-  bottom: 8px;
-  width: 2px;
-  background: var(--ink);
-  opacity: 0.15;
-}
-.quote-minimal .quote-title {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.quote-minimal .quote-desc {
-  font-size: 0.88rem;
-  color: var(--ink-light);
-  line-height: 1.8;
-}
-```
+> ⚠️ 禁止使用 border-left 竖线引用块样式（类似 Notion/飞书的左侧竖条引用块）。
 
 ---
 
-#### 1E-B. 杂志大引号 Editorial Quote
+#### 1E-A. 杂志大引号 Editorial Quote
 
 白底圆角卡片 + oversized引号，适合长引用和核心洞察。
 
@@ -340,7 +301,7 @@
 
 ---
 
-#### 1E-C. 手写批注 Handwritten Note
+#### 1E-B. 手写批注 Handwritten Note
 
 虚线边框 + Caveat字体标签，适合提示/注意事项/笔记感。
 
@@ -390,7 +351,7 @@
 
 ---
 
-#### 1E-D. 荧光笔高亮 Highlighter
+#### 1E-C. 荧光笔高亮 Highlighter
 
 标题自带荧光笔底色，适合强调金句和核心论点。
 
@@ -426,7 +387,7 @@
 
 ---
 
-#### 1E-E. 终端命令风 Terminal Style
+#### 1E-D. 终端命令风 Terminal Style
 
 暗色终端风格，适合技术类观点、开发者语境。
 
@@ -485,7 +446,7 @@
 }
 ```
 
-**使用建议**: 1E-A适合正文内嵌观点，1E-B适合核心洞察/长引用，1E-C适合提示/注意事项，1E-D适合金句强调，1E-E适合技术文章
+**使用建议**: 1E-A适合核心洞察/长引用，1E-B适合提示/注意事项，1E-C适合金句强调，1E-D适合技术文章
 
 ---
 
