@@ -40,7 +40,7 @@
 
 3:4 比例、字大、手机可读、一键导出 PNG 的图文卡片。
 
-🔗 [在线预览](https://hiesther.me/tutorials/esther-design-system/demo-readme-cards.html)
+🔗 打开 `assets/template-cards.html` 预览
 
 ---
 
@@ -54,7 +54,7 @@
 
 ### 🧩 组件库全览
 
-30+ 经过验证的可复用组件。
+50+ 经过验证的可复用组件。
 
 🔗 [组件库预览](https://hiesther.me/tutorials/esther-design-system/components-preview.html)
 
@@ -70,7 +70,7 @@ brand-dna.md + references/*(规范 - 能用什么不能用什么)
 assets/template-*.html(起点 - 从模板改,不从零写)
 ```
 
-- AI 不能随便发明布局 → 只能从 15 种里选
+- AI 不能随便发明布局 → 只能从 16 种里选
 - AI 不能随便用颜色 → 只能用你定义的品牌色 + 扩展规则
 - AI 不能随便写样式 → 必须从组件库里选
 - AI 做完要自检 → 对照 checklist 逐条过，P0 不过就打回
@@ -89,10 +89,11 @@ esther-design-system/
 │   ├── template-app.html           App型模板
 │   ├── template-cards.html         小红书卡片模板
 │   ├── html2canvas.min.js          卡片导出依赖
+│   ├── avatar-placeholder.svg      占位头像(可替换为你自己的 avatar.jpg)
 │   └── avatar.jpg                  ← 你的头像(需自行放入,仓库未附带)
 └── references/                 ← 规则和零件(知识库)
-    ├── layouts.md                  15种布局模式(附完整代码)
-    ├── components.md               组件库(30+组件,完整HTML+CSS)
+    ├── layouts.md                  16种布局模式(附完整代码)
+    ├── components.md               组件库(50+组件,完整HTML+CSS)
     ├── checklist.md                质量检查清单(P0/P1/P2)
     ├── scene-tutorial.md           教程场景规范
     ├── scene-landing.md            活动页场景规范
@@ -169,7 +170,7 @@ AI 每次做设计必须按这个顺序走：
 
 1. Fork 或克隆本仓库
 2. 放入你的头像 `assets/avatar.jpg`
-3. （可选）打开 `brand-dna.md`，把默认品牌色替换成你自己的，并同步修改 `assets/template-*.html` 里 `:root` 的变量
+3. （可选）打开 `brand-dna.md`，把默认品牌色替换成你自己的，并同步修改 `assets/template-*.html` 里 `:root` 的变量。注意：公众号模板（`template-wechat.html`）全部是内联样式，没有 CSS 变量，需要手动搜索替换色值。快捷方法：在所有模板文件中搜索 `#2B7FD8` 替换为你的主色，`#F4D758` 替换为你的强调色，`#E84A5F` 替换为你的点缀色
 4. 把 `assets/template-cards.html` 中的作者名替换成你自己的
 5. 把仓库链接发给你的 AI Agent，跟它说：
 

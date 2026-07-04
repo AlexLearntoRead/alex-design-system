@@ -181,6 +181,9 @@ body (background:#f5f5f5)
 ```
 
 ### 签名档
+
+<!-- 以下为示例，请替换为你自己的信息 -->
+
 ```html
 <section style="text-align:center; padding:20px 0 0;">
   <img src="头像base64或路径" style="width:48px; height:48px; border-radius:50%; margin-bottom:10px;">
@@ -256,5 +259,5 @@ def img_to_base64(path, max_width=1080, quality=72):
 
 ## 📎 参考定稿
 
-- `B.自媒体/7.分发/0615-自媒体工作流/公众号-0615工作流.html`（教程类范例）
-- `B.自媒体/7.分发/0704-毕业发言/公众号-毕业发言-base64.html`（叙事类范例）
+- 本仓库 `assets/demo-wechat.html`（完整 Demo，含所有组件示例）
+- 本仓库 `assets/template-wechat.html`（可直接修改的模板骨架）
