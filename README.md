@@ -134,6 +134,43 @@ AI 每次做设计必须按这个顺序走：
 | 6 | 对照 checklist 自检 | P0 不过就打回 |
 | 7 | 交付 HTML 文件 | 浏览器打开就能看 |
 
+## 🖼️ 图片与素材处理规范 (Image & Asset Handling)
+
+当用户在对话中提供了图片（如 Base64 编码文本、本地文件路径、或在线 URL）时，AI 必须严格遵循以下规则将其整合进 HTML 代码中，**严禁使用无效的占位符链接或忽略用户提供的图片**。
+
+### 1. 图片源 (src) 处理优先级
+- **优先级 1：Base64 内嵌（首选）**
+  如果用户直接提供了 Base64 编码的图片文本（如 `data:image/jpeg;base64,/9j/4AAQ...`），AI 必须将其完整提取，并直接作为 `src` 属性嵌入到 HTML 的 `<img>` 标签中。
+  ```html
+  <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..." alt="用户提供的图片" class="img-responsive">
+    <!-- 请确保将 avatar.jpg 放在与此 HTML 文件相同的目录下 -->
+  <img src="./avatar.jpg" alt="头像" class="img-responsive">
+    <img src="https://example.com/image.png" alt="在线图片" class="img-responsive">
+  <!-- 响应式图片组件 -->
+<style>
+  .img-responsive {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px; /* 符合品牌圆角规范 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: block;
+  }
+  
+  /* 头像专用组件 */
+  .avatar-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--cream-dark); /* 使用品牌色变量 */
+    box-shadow: 0 4px 16px rgba(43, 127, 216, 0.15);
+  }
+</style>
+
+<!-- 使用示例 -->
+<img src="[此处替换为用户提供的Base64或路径]" alt="描述" class="img-responsive">
+<img src="[此处替换为用户提供的Base64或路径]" alt="头像" class="avatar-circle">
+
 ---
 
 ## 品牌基因速览
